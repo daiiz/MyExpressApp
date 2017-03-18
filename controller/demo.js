@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
   res.render('demo/index2', {});
 });
 
-router.get('/app', function (req, res, next) {
+router.get('/demo', function (req, res, next) {
   var query = datastore.createQuery('Book');
   query.limit(10);
   datastore.runQuery(query, function(err, entities) {
@@ -20,7 +20,6 @@ router.get('/app', function (req, res, next) {
       books: entities
     });
   });
-
 });
 
 router.get('/datastore', function (req, res, next) {
