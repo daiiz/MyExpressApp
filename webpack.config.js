@@ -2,9 +2,10 @@ var webpack = require('webpack');
 
 module.exports = {
   /* ビルドの起点となるファイルの設定 */
-  entry: {
-    bundle: './clientjs/apps.jsx'
-  },
+  entry: [
+    './clientjs/formapp/apps.jsx'
+  ],
+
   /* 出力されるファイルの設定 */
   output: {
     path: './public/js', // 出力先のパス
@@ -18,12 +19,13 @@ module.exports = {
       }
     })
   ],
+
   module: {
 
     /* loaderの設定 */
     loaders: [
       {
-        test: /\.jsx$/, // 対象となるファイルの拡張子（正規表現可）
+        test: /\.js[x]$/, // 対象となるファイルの拡張子（正規表現可）
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {

@@ -27,7 +27,6 @@ class FormInput extends React.Component {
     e.preventDefault();
     this.props.handleClick(this.myInput.value.trim());
     this.myInput.value = '';
-    return;
   }
 
   render () {
