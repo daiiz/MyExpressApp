@@ -66,10 +66,7 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-const AppContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FormApp);
+const AppContainer = connect(mapStateToProps, mapDispatchToProps)(FormApp);
 
 
 /**
