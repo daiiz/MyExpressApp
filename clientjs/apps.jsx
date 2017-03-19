@@ -7,9 +7,6 @@ import { Provider, connect } from 'react-redux';
 // https://github.com/maechabin/redux-sample
 // http://mae.chab.in/archives/2885
 
-/**
- * View
- */
 import FormApp from './FormApp.jsx';
 import Text from './Text.jsx';
 
