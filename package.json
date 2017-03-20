@@ -31,7 +31,8 @@
     "react-redux": "latest",
     "redux": "latest",
     "redux-thunk": "^2.2.0",
-    "serve-favicon": "~2.3.2"
+    "serve-favicon": "~2.3.2",
+    "superagent": "^3.5.1"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",
