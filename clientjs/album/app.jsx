@@ -9,7 +9,7 @@ const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 /***********************************************
    Actions, ActionCreators
  ***********************************************/
-import { fetchGyazoImagesAsync } from './actionCreators.jsx';
+import { fetchGyazoImagesAsync, showImagePreview } from './actionCreators.jsx';
 
 
 /***********************************************
@@ -22,6 +22,7 @@ let albumReducer = (state, action) => {
         progress: true,
         text: action.status
       });
+
     case 'SUCCESS_FETCH_GYAZO_IMAGES':
       var images = action.images;
       return Object.assign({}, state, {
@@ -29,11 +30,20 @@ let albumReducer = (state, action) => {
         text: action.status,
         gyazoImages: images
       });
+
     case 'FAIL_FETCH_GYAZO_IMAGES':
       return Object.assign({}, state, {
         progress: false,
         text: action.status
       });
+
+    case 'SHOW_IMAGE_PREVIEW':
+      return Object.assign({}, state, {
+        src: action.i,
+        href: action.p,
+        gyazoImgId: action.id
+      });
+
     default:
       return state;
   }
@@ -44,9 +54,10 @@ let albumReducer = (state, action) => {
    Store
  ***********************************************/
 const initialState = {
-  title: 'Scrapbox Beaver',
+  title: 'Gyazo Album',
+  href: '#',
   gyazoImgId: '5701e777fac8da5361c4c558fd437cbb',
-  gyazoImgUrl: 'https://i.gyazo.com/5701e777fac8da5361c4c558fd437cbb.png',
+  src: 'https://i.gyazo.com/5701e777fac8da5361c4c558fd437cbb.png',
   description: '',
   progress: false,
   text: '',
@@ -66,7 +77,8 @@ class Album extends React.Component {
           <Title title={this.props.title} />
           <GyazoImage
             src={this.props.src}
-            imgId={this.props.imgId} />
+            href={this.props.href}
+            gyazoImgId={this.props.gyazoImgId} />
           <Description text={this.props.description} />
           <Hashtags />
         </div>
@@ -75,6 +87,7 @@ class Album extends React.Component {
             progress={this.props.progress}
             text={this.props.text}
             images={this.props.images}
+            listImageClick={this.props.listImageClick}
             loadGyazoItems={this.props.loadGyazoImages} />
         </div>
       </div>
@@ -88,13 +101,14 @@ class Album extends React.Component {
    Rendering
  ***********************************************/
 let mapStateToProps = (state) => {
-  console.log(state);
+  console.dir(state);
   return {
     title: state.title,
     description: state.description,
     progress: state.progress,
-    src: state.gyazoImgUrl,
-    imgId: state.gyazoImgId,
+    src: state.src,
+    href: state.href,
+    gyazoImgId: state.gyazoImgId,
     images: state.gyazoImages,
     text: state.text
   };
@@ -103,7 +117,7 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    onClick: (value) => {/*dispatch(send(value));*/},
+    listImageClick: (image) => {dispatch(showImagePreview(image))},
     loadGyazoImages: (value) => {dispatch(fetchGyazoImagesAsync(value))}
   };
 };

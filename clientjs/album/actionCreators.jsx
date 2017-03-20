@@ -45,7 +45,17 @@ export let fetchGyazoImagesAsync = (value) => {
           }
           dispatch(successFetchGyazoImages(images));
         }
-
       });
   };
+};
+
+
+export const SHOW_IMAGE_PREVIEW = 'SHOW_IMAGE_PREVIEW';
+export let showImagePreview = (image) => {
+  return {
+    type: SHOW_IMAGE_PREVIEW,
+    i: image.i,
+    p: image.p,
+    id: image.id
+  }
 };

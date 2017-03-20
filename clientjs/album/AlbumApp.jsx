@@ -13,7 +13,9 @@ export class Title extends React.Component {
 export class GyazoImage extends React.Component {
   render() {
     return (
-      <img className="photo" src={this.props.src} title={this.props.imgId} />
+      <a href={this.props.href} target="_blank" src={this.props.src}>
+        <img className="photo" src={this.props.src} title={this.props.gyazoImgId} />
+      </a>
     );
   }
 }
@@ -37,7 +39,9 @@ export class GyazoImageList extends React.Component {
         let t = item.thumb_url;
         let i = item.url;
         let p = item.permalink_url;
-        thumbnails.push(<SquareThumbnail key={id} t={t} i={i} p={p} />)
+        thumbnails.push(<SquareThumbnail
+          handleClick={this.props.listImageClick}
+          key={id} t={t} i={i} p={p} t_id={id}/>)
       }
 
       return (
@@ -62,7 +66,7 @@ export class Description extends React.Component {
 export class Hashtags extends React.Component {
   render() {
     return (
-      <div className="tags">#</div>
+      <div className="tags">#Gyazo</div>
     );
   }
 }
