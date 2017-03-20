@@ -3,7 +3,7 @@ import React from 'react';
 export class Title extends React.Component {
   render() {
     return (
-      <div>{this.props.title}</div>
+      <div className="title">{this.props.title}</div>
     );
   }
 }
@@ -18,11 +18,29 @@ export class GyazoImage extends React.Component {
   }
 }
 
+export class GyazoImageList extends React.Component {
+  componentDidMount() {
+    this.props.loadGyazoItems(44);
+  }
+
+  render() {
+    if (this.props.progress) {
+      return (
+        <div>{this.props.text}</div>
+      )
+    }else {
+      return (
+        <div>{this.props.text}</div>
+      )
+    }
+  }
+}
+
 
 export class Description extends React.Component {
   render() {
     return (
-      <div class="description">{this.props.text}</div>
+      <div className="description">{this.props.text}</div>
     );
   }
 }
@@ -30,7 +48,7 @@ export class Description extends React.Component {
 export class Hashtags extends React.Component {
   render() {
     return (
-      <div class="tags">#</div>
+      <div className="tags">#</div>
     );
   }
 }

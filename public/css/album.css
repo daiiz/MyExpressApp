@@ -1,3 +1,11 @@
 .photo {
     max-height: 300px;
 }
+
+.title {
+    font-size: 1.4em;
+}
+
+.tags {
+    font-size: 10pt;
+}

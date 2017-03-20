@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider, connect } from 'react-redux';
-import { Title, GyazoImage, Description, Hashtags }  from './AlbumApp.jsx';
-
+import thunk from 'redux-thunk';
+import { Title, GyazoImage, Description, Hashtags, GyazoImageList }  from './AlbumApp.jsx';
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 /***********************************************
    Actions, ActionCreators
  ***********************************************/
-
+import { fetchGyazoImagesAsync } from './actionCreators.jsx';
 
 
 /***********************************************
@@ -16,9 +17,20 @@ import { Title, GyazoImage, Description, Hashtags }  from './AlbumApp.jsx';
  ***********************************************/
 let albumReducer = (state, action) => {
   switch (action.type) {
-    case 'SEND':
+    case 'FETCH_GYAZO_IMAGES':
       return Object.assign({}, state, {
-        value: action.value
+        progress: true,
+        text: action.status
+      });
+    case 'SUCCESS_FETCH_GYAZO_IMAGES':
+      return Object.assign({}, state, {
+        progress: false,
+        text: action.status
+      });
+    case 'FAIL_FETCH_GYAZO_IMAGES':
+      return Object.assign({}, state, {
+        progress: false,
+        text: action.status
       });
     default:
       return state;
@@ -32,9 +44,11 @@ let albumReducer = (state, action) => {
 const initialState = {
   title: 'Scrapbox Beaver',
   gyazoImgId: '5701e777fac8da5361c4c558fd437cbb',
-  description: ''
+  description: '',
+  progress: false,
+  text: ''
 };
-const store = createStore(albumReducer, initialState);
+const store = createStoreWithMiddleware(albumReducer, initialState);
 
 
 /***********************************************
@@ -44,10 +58,18 @@ class Album extends React.Component {
   render () {
     return (
       <div>
-        <Title title={this.props.title} />
-        <GyazoImage img_id={this.props.imageId} />
-        <Description text={this.props.description} />
-        <Hashtags />
+        <div className="preview">
+          <Title title={this.props.title} />
+          <GyazoImage img_id={this.props.imageId} />
+          <Description text={this.props.description} />
+          <Hashtags />
+        </div>
+        <div className="list">
+          <GyazoImageList
+            progress={this.props.progress}
+            text={this.props.text}
+            loadGyazoItems={this.props.loadGyazoImages} />
+        </div>
       </div>
     );
   }
@@ -63,16 +85,17 @@ let mapStateToProps = (state) => {
   return {
     title: state.title,
     imageId: state.gyazoImgId,
-    description: state.description
+    description: state.description,
+    progress: state.progress,
+    text: state.text
   };
 };
 
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    onClick(value) {
-      //dispatch(send(value));
-    }
+    onClick: (value) => {/*dispatch(send(value));*/},
+    loadGyazoImages: (value) => {dispatch(fetchGyazoImagesAsync(value))}
   };
 };
 
