@@ -3,6 +3,7 @@
 - Node.js
 - React
 - GoogleCloudDatastore
+- Gyazo API
 
 ### Devtool
 - Webpack
