@@ -55,13 +55,14 @@ let albumReducer = (state, action) => {
  ***********************************************/
 const initialState = {
   title: 'Gyazo Album',
-  href: '#',
+  href: 'https://gyazo.com/5701e777fac8da5361c4c558fd437cbb',
   gyazoImgId: '5701e777fac8da5361c4c558fd437cbb',
   src: 'https://i.gyazo.com/5701e777fac8da5361c4c558fd437cbb.png',
   description: '',
   progress: false,
   text: '',
-  gyazoImages: []
+  gyazoImages: [],
+  perPage: 4
 };
 const store = createStoreWithMiddleware(albumReducer, initialState);
 
@@ -87,6 +88,7 @@ class Album extends React.Component {
             progress={this.props.progress}
             text={this.props.text}
             images={this.props.images}
+            perPage={this.props.perPage}
             listImageClick={this.props.listImageClick}
             loadGyazoItems={this.props.loadGyazoImages} />
         </div>
@@ -110,14 +112,15 @@ let mapStateToProps = (state) => {
     href: state.href,
     gyazoImgId: state.gyazoImgId,
     images: state.gyazoImages,
-    text: state.text
+    text: state.text,
+    perPage: state.perPage
   };
 };
 
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    listImageClick: (image) => {dispatch(showImagePreview(image))},
+    listImageClick : (image) => {dispatch(showImagePreview(image))},
     loadGyazoImages: (value) => {dispatch(fetchGyazoImagesAsync(value))}
   };
 };

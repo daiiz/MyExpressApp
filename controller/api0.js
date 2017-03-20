@@ -21,7 +21,7 @@ router.get('/health', (req, res) => {
 // POST
 router.post('/album/gyazo_list', (req, res) => {
   console.info(req.body);
-  client.list({page: 1, per_page: 3})
+  client.list({page: 1, per_page: +req.body.per_page})
     .then(result => {
       res.send({
         status: 'OK',

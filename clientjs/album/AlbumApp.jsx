@@ -22,7 +22,7 @@ export class GyazoImage extends React.Component {
 
 export class GyazoImageList extends React.Component {
   componentDidMount() {
-    this.props.loadGyazoItems(44);
+    this.props.loadGyazoItems(this.props.perPage);
   }
 
   render() {

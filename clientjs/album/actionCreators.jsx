@@ -1,8 +1,7 @@
 import request from 'superagent';
 
 export const FETCH_GYAZO_IMAGES = 'FETCH_GYAZO_IMAGES';
-export let fetchGyazoImages = (value) => {
-  console.info(value);
+export let fetchGyazoImages = () => {
   return {
     type: FETCH_GYAZO_IMAGES,
     status: '取得中...'
@@ -27,14 +26,14 @@ export let failFetchGyazoImages = (value) => {
 };
 
 
-export let fetchGyazoImagesAsync = (value) => {
+export let fetchGyazoImagesAsync = (perPage) => {
   return (dispatch) => {
-    dispatch(fetchGyazoImages(666 + value));
+    dispatch(fetchGyazoImages());
 
     // /api/text
     // 'http://svgscreenshot.appspot.com/api/collections'
     request.post('/api/v0/album/gyazo_list')
-      .send({sample: 'sample text'})
+      .send({per_page: perPage})
       .end((err, res) => {
         if (err) {
           dispatch(failFetchGyazoImages());
