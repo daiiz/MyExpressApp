@@ -23,9 +23,11 @@ let albumReducer = (state, action) => {
         text: action.status
       });
     case 'SUCCESS_FETCH_GYAZO_IMAGES':
+      var images = action.images;
       return Object.assign({}, state, {
         progress: false,
-        text: action.status
+        text: action.status,
+        gyazoImages: images
       });
     case 'FAIL_FETCH_GYAZO_IMAGES':
       return Object.assign({}, state, {
@@ -44,9 +46,11 @@ let albumReducer = (state, action) => {
 const initialState = {
   title: 'Scrapbox Beaver',
   gyazoImgId: '5701e777fac8da5361c4c558fd437cbb',
+  gyazoImgUrl: 'https://i.gyazo.com/5701e777fac8da5361c4c558fd437cbb.png',
   description: '',
   progress: false,
-  text: ''
+  text: '',
+  gyazoImages: []
 };
 const store = createStoreWithMiddleware(albumReducer, initialState);
 
@@ -60,7 +64,9 @@ class Album extends React.Component {
       <div>
         <div className="preview">
           <Title title={this.props.title} />
-          <GyazoImage img_id={this.props.imageId} />
+          <GyazoImage
+            src={this.props.src}
+            imgId={this.props.imgId} />
           <Description text={this.props.description} />
           <Hashtags />
         </div>
@@ -68,6 +74,7 @@ class Album extends React.Component {
           <GyazoImageList
             progress={this.props.progress}
             text={this.props.text}
+            images={this.props.images}
             loadGyazoItems={this.props.loadGyazoImages} />
         </div>
       </div>
@@ -84,9 +91,11 @@ let mapStateToProps = (state) => {
   console.log(state);
   return {
     title: state.title,
-    imageId: state.gyazoImgId,
     description: state.description,
     progress: state.progress,
+    src: state.gyazoImgUrl,
+    imgId: state.gyazoImgId,
+    images: state.gyazoImages,
     text: state.text
   };
 };

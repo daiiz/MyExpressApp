@@ -1,3 +1,7 @@
+body {
+    background: #e0e0e0;
+}
+
 .photo {
     max-height: 300px;
 }
@@ -8,4 +12,62 @@
 
 .tags {
     font-size: 10pt;
+}
+
+.thumbnails {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 auto;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+
+
+.card-square {
+    position: relative;
+    width: 125px;
+    height: 125px;
+    min-height: 125px !important;
+    border-radius: 0;
+    box-sizing: content-box;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 500;
+    cursor: pointer;
+    overflow: visible;
+    z-index: 10;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),
+                0 3px 1px -2px rgba(0,0,0,.2),
+                0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.cell {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    font-size: 16px;
+    font-weight: 400;
+    min-height: 200px;
+    overflow: hidden;
+    z-index: 1;
+    position: relative;
+    background: #fff;
+    border-radius: 2px;
+    box-sizing: border-box;
+    margin: 8px;
+}
+
+.card-bgimg {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 121px;
+    height: 121px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-sizing: border-box;
+    margin: 2px;
+    background-color: #f9f9f9;
 }

@@ -10,10 +10,11 @@ export let fetchGyazoImages = (value) => {
 };
 
 export const SUCCESS_FETCH_GYAZO_IMAGES = 'SUCCESS_FETCH_GYAZO_IMAGES';
-export let successFetchGyazoImages = (value) => {
+export let successFetchGyazoImages = (images) => {
   return {
     type: SUCCESS_FETCH_GYAZO_IMAGES,
-    status: '成功'
+    status: '成功',
+    images: images
   }
 };
 
@@ -32,14 +33,17 @@ export let fetchGyazoImagesAsync = (value) => {
 
     // /api/text
     // 'http://svgscreenshot.appspot.com/api/collections'
-    request.post('/api/')
+    request.post('/api/v0/album/gyazo_list')
       .send({sample: 'sample text'})
       .end((err, res) => {
         if (err) {
           dispatch(failFetchGyazoImages());
         }else {
-          console.log(res);
-          dispatch(successFetchGyazoImages());
+          var images = [];
+          if (res.body.status === 'OK') {
+            images = res.body.images;
+          }
+          dispatch(successFetchGyazoImages(images));
         }
 
       });
