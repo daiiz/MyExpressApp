@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Scripts from './Scripts'
+import Scripts from '../common/Scripts'
 
 // 静的なコンテンツをレンダリング
 export default class Index extends Component {
@@ -13,7 +13,7 @@ export default class Index extends Component {
         <body>
           <div>{this.props.title}</div>
           <div id="app"></div>
-          <Scripts />
+          <Scripts name="formapp"/>
         </body>
       </html>
     );

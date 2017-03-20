@@ -2,14 +2,15 @@ var webpack = require('webpack');
 
 module.exports = {
   /* ビルドの起点となるファイルの設定 */
-  entry: [
-    './clientjs/formapp/apps.jsx'
-  ],
+  entry: {
+    formapp: './clientjs/formapp/app.jsx',
+    album: './clientjs/album/app.jsx'
+  },
 
   /* 出力されるファイルの設定 */
   output: {
     path: './public/js', // 出力先のパス
-    filename: 'bundle.js' // 出力先のファイル名
+    filename: '[name].bundle.js' // 出力先のファイル名
   },
 
   plugins:[
