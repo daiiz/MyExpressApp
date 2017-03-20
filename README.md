@@ -1,7 +1,7 @@
 # MyExpressApp
 
 - Node.js
-- React
+- React, Redux
 - GoogleCloudDatastore
 - Gyazo API
 
